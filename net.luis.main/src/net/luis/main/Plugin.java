@@ -32,6 +32,9 @@ import net.luis.main.testrule.Rule1Impl;
  * @version 创建时间：2015-3-12 下午06:17:05
  **/
 
+
+
+
 @PluginAnnotation
 public class Plugin extends AbstractPlugin{
 	public Plugin(){
