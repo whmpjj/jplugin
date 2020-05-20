@@ -1,4 +1,4 @@
-package test.net.luis.plugin.das.hib;
+package test.net.jplugin.das.hib;
 
 import net.jplugin.common.kits.AssertKit;
 import net.jplugin.core.das.api.stat.CreateIndexStatement;

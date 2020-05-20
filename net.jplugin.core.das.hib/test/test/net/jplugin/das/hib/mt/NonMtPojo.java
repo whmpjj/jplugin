@@ -1,4 +1,4 @@
-package test.net.luis.plugin.das.hib.mt;
+package test.net.jplugin.das.hib.mt;
 
 public class NonMtPojo {
 	long id;

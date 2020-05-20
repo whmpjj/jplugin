@@ -1,4 +1,4 @@
-package test.net.luis.plugin.das.hib;
+package test.net.jplugin.das.hib;
 
 import net.jplugin.core.das.hib.api.Entity;
 

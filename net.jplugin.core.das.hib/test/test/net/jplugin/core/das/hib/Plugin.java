@@ -1,12 +1,12 @@
 package test.net.jplugin.core.das.hib;
 
-import test.net.luis.plugin.das.hib.DBPojoIdNativeTest;
-import test.net.luis.plugin.das.hib.DBPojoTest;
-import test.net.luis.plugin.das.hib.DasTest;
-import test.net.luis.plugin.das.hib.StatementTest;
-import test.net.luis.plugin.das.hib.mt.MtPojo;
-import test.net.luis.plugin.das.hib.mt.MtServiceTest;
-import test.net.luis.plugin.das.hib.mt.NonMtPojo;
+import test.net.jplugin.das.hib.DBPojoIdNativeTest;
+import test.net.jplugin.das.hib.DBPojoTest;
+import test.net.jplugin.das.hib.DasTest;
+import test.net.jplugin.das.hib.StatementTest;
+import test.net.jplugin.das.hib.mt.MtPojo;
+import test.net.jplugin.das.hib.mt.MtServiceTest;
+import test.net.jplugin.das.hib.mt.NonMtPojo;
 import net.jplugin.core.das.hib.api.ExtensionDasHelper;
 import net.jplugin.core.kernel.api.AbstractPluginForTest;
 import net.jplugin.core.kernel.api.CoreServicePriority;
