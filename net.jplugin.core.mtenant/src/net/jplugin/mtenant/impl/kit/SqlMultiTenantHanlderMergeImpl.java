@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import net.jplugin.core.config.api.ConfigFactory;
 import net.jplugin.core.das.api.sqlrefactor.ISqlRefactor;
-import net.jplugin.core.das.route.impl.conn.RouterConnection;
+import net.jplugin.core.das.dds.impl.DummyConnection;
 import net.jplugin.core.kernel.api.ctx.ThreadLocalContextManager;
 import net.jplugin.core.log.api.LogFactory;
 import net.jplugin.core.log.api.Logger;
@@ -55,7 +55,7 @@ public class SqlMultiTenantHanlderMergeImpl implements ISqlRefactor{
 		//router connection数据源不能配置为多租户
 		boolean isRouter =false;
 		try{
-			isRouter = conn.isWrapperFor(RouterConnection.class);
+			isRouter = conn.isWrapperFor(DummyConnection.class);
 		}catch(Exception e){
 			throw new RuntimeException("Error while call isWrapper",e);
 		}
