@@ -48,6 +48,13 @@ public class ThreadLocalContextManager {
 		return rc;
 	}
 	
+	public boolean createContextIfNotExists() {
+		if (ctxLocal.get()==null) {
+			createContext();
+			return true;
+		}
+		return false;
+	}
 //	public static void releaseCurrentContext(){
 //		instance.releaseContext();
 //	}
@@ -59,5 +66,16 @@ public class ThreadLocalContextManager {
 		}
 		ctxLocal.set(null);
 		ctx.release();
+	}
+
+	public static void runInContext(Runnable r) {
+		boolean b = false;
+		try{
+			b = ThreadLocalContextManager.instance.createContextIfNotExists();
+			r.run();
+		}finally {
+			if (b)
+				ThreadLocalContextManager.instance.releaseContext();
+		}
 	}
 }
