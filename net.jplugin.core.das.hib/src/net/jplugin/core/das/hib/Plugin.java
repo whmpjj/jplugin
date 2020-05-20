@@ -11,6 +11,7 @@ import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.Extension;
 import net.jplugin.core.kernel.api.ExtensionPoint;
 import net.jplugin.core.kernel.api.PluginEnvirement;
+import net.jplugin.core.kernel.api.ctx.ThreadLocalContextManager;
 import net.jplugin.core.service.api.Constants;
 import net.jplugin.core.service.api.ServiceFactory;
 /**
@@ -65,7 +66,10 @@ public class Plugin extends AbstractPlugin{
 
 		
 		DataService4Hibernate das = ((DataService4Hibernate)ServiceFactory.getService(IDataService.class));
-		das.init(podefs,singlePoDefs);
+		
+		ThreadLocalContextManager.runInContext(() -> {
+			das.init(podefs, singlePoDefs);
+		});
 		
 		MtDataService mtsvc = (MtDataService) ServiceFactory.getService(IMtDataService.class);
 		mtsvc.initDataService(ServiceFactory.getService(IDataService.class));
@@ -73,7 +77,6 @@ public class Plugin extends AbstractPlugin{
 
 	@Override
 	public void init() {
-		
 	}
 
 }
