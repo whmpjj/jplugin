@@ -1,4 +1,4 @@
-package net.jplugin.core.das.route.impl.conn;
+package net.jplugin.core.das.dds.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

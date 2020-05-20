@@ -39,8 +39,8 @@ public class CombinedPreparedStatement extends CombinedStatement implements Prep
 	
 //	private CombinedSelectContext sqlExeutionContext;
 
-	public CombinedPreparedStatement(Connection conn, String sql){
-		super(conn);
+	public CombinedPreparedStatement(String sql){
+//		super(conn);
 		//解析
 //		sqlParseResult = CombinedSqlParser.parseAndMakeContext(sql);
 //		ParseResult sqlParseResult = CombinedSqlParser.parse(sql);

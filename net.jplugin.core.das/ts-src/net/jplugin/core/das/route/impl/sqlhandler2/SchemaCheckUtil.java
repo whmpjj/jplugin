@@ -4,9 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import net.jplugin.common.kits.StringKit;
+import net.jplugin.core.das.dds.api.IRouterDataSource;
+import net.jplugin.core.das.route.api.RouterDataSource;
 import net.jplugin.core.das.route.api.RouterDataSourceConfig;
 import net.jplugin.core.das.route.api.TablesplitException;
-import net.jplugin.core.das.route.impl.conn.RouterConnection;
+//import net.jplugin.core.das.route.impl.conn.RouterConnection;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.util.TablesNamesFinder;
@@ -18,9 +20,9 @@ public class SchemaCheckUtil {
 	 * @param conn
 	 * @param stmt
 	 */
-	public static void checkAndRemoveSchema(RouterConnection conn, Statement stmt,String sqlToLog) {
+	public static void checkAndRemoveSchema(IRouterDataSource routeDs, Statement stmt,String sqlToLog) {
 		Set<String> schemas = extractAndRemoveSchema(stmt);
-		if (!checkSchema(schemas,conn)){
+		if (!checkSchema(schemas,routeDs)){
 			throw new TablesplitException("schema check error. "+sqlToLog);
 		}
 	}
@@ -28,8 +30,8 @@ public class SchemaCheckUtil {
 	/**
 	 * 由于Shcmne在一个句子里面很少，这些写没有问题
 	 */
-	private static boolean checkSchema(Set<String> schemas, RouterConnection conn) {
-		RouterDataSourceConfig dscfg = conn.getDataSource().getConfig();
+	private static boolean checkSchema(Set<String> schemas, IRouterDataSource routeDs) {
+		RouterDataSourceConfig dscfg = ((RouterDataSource)routeDs).getConfig();
 		for (String s:schemas){
 			if (E_M_P_T_Y.equals(s)){
 				//如果是空，则判断是否允许空，不允许则退出

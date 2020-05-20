@@ -3,7 +3,9 @@ package net.jplugin.core.das.route.impl.sqlhandler2;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.jplugin.core.das.dds.api.IRouterDataSource;
 import net.jplugin.core.das.route.api.DataSourceInfo;
+import net.jplugin.core.das.route.api.RouterDataSource;
 import net.jplugin.core.das.route.api.ITsAlgorithm.Result;
 import net.jplugin.core.das.route.api.RouterDataSourceConfig.TableConfig;
 import net.jplugin.core.das.route.api.RouterException;
@@ -11,7 +13,7 @@ import net.jplugin.core.das.route.api.RouterKeyFilter;
 import net.jplugin.core.das.route.api.RouterKeyFilter.Operator;
 import net.jplugin.core.das.route.api.TablesplitException;
 import net.jplugin.core.das.route.impl.TsAlgmManager;
-import net.jplugin.core.das.route.impl.conn.RouterConnection;
+//import net.jplugin.core.das.route.impl.conn.RouterConnection;
 import net.jplugin.core.das.route.impl.conn.SqlHandleResult;
 import net.jplugin.core.das.route.impl.conn.SqlHandleResult.CommandType;
 import net.jplugin.core.das.route.impl.util.SqlParserKit;
@@ -29,7 +31,7 @@ public abstract class AbstractCommandHandler2 extends RefAnnotationSupport{
 	public static final String __THE_TB_SPS_HDR__ = "__THE_TB_SPS_HDR__";
 	protected net.sf.jsqlparser.statement.Statement statement =null;
 	protected String sqlString;
-	protected RouterConnection connetion;
+	protected RouterDataSource dataSource;
 	protected List<Object> parameters;
 	private String tableName;
 	private TableConfig tableConfig;
@@ -92,7 +94,7 @@ public abstract class AbstractCommandHandler2 extends RefAnnotationSupport{
 		this.tableName = tableName;
 	}
 
-	public static AbstractCommandHandler2 create(RouterConnection conn, String sql, List<Object> params)  {
+	public static AbstractCommandHandler2 create(RouterDataSource routeDs, String sql, List<Object> params)  {
 		CCJSqlParserManager pm = new CCJSqlParserManager();
 		
     	net.sf.jsqlparser.statement.Statement stmt;
@@ -113,10 +115,10 @@ public abstract class AbstractCommandHandler2 extends RefAnnotationSupport{
     	}
     	
     	//验证schema合法性，并去除schema前缀
-    	SchemaCheckUtil.checkAndRemoveSchema(conn,stmt,sql);
+    	SchemaCheckUtil.checkAndRemoveSchema(routeDs,stmt,sql);
     
     	instance.statement = stmt;
-    	instance.connetion = conn;
+    	instance.dataSource = routeDs;
     	instance.parameters = params;
     	instance.sqlString = sql;
     	
@@ -200,7 +202,7 @@ public abstract class AbstractCommandHandler2 extends RefAnnotationSupport{
 				throw new TablesplitException("Insert cant' support span table now. "+this.sqlString );
 			
 			//检查span注释是否有
-			if (this.connetion.getDataSource().getConfig().isCommentRequiredForSpan()){
+			if (this.dataSource.getConfig().isCommentRequiredForSpan()){
 				if (!SpanCheckKit.isSpanTable(this.sqlString))
 					throw new TablesplitException("table not use spantable,can't span. "+this.sqlString);
 			}
@@ -272,10 +274,10 @@ public abstract class AbstractCommandHandler2 extends RefAnnotationSupport{
 		//根据情况调用不同接口
 		DataSourceInfo[] algmResults;
 		if (keyValue.getOperator()==Operator.EQUAL){
-			Result result = TsAlgmManager.getResult(connetion.getDataSource(), tableName, keyValue.getConstValue()[0]);
+			Result result = TsAlgmManager.getResult(this.dataSource, tableName, keyValue.getConstValue()[0]);
 			algmResults = convertToOneDataSourceInfo(result);
 		}else{
-			algmResults = TsAlgmManager.getMultiResults(connetion.getDataSource(), tableName, keyValue);
+			algmResults = TsAlgmManager.getMultiResults(this.dataSource, tableName, keyValue);
 		}
 		return algmResults;
 	}
@@ -342,7 +344,7 @@ public abstract class AbstractCommandHandler2 extends RefAnnotationSupport{
 	private TableConfig getTableCfg() {
 		if (this.tableConfig != null)
 			return this.tableConfig;
-		TableConfig tableCfg = this.connetion.getDataSource().getConfig().findTableConfig(tableName);
+		TableConfig tableCfg = this.dataSource.getConfig().findTableConfig(tableName);
 		if (tableCfg == null)
 			new TablesplitException("The table is configed as a splate table." + tableName);
 		this.tableConfig = tableCfg;
@@ -434,8 +436,8 @@ public abstract class AbstractCommandHandler2 extends RefAnnotationSupport{
 //		return false;
 //	}
 	
-	protected TableConfig getTableCfg(RouterConnection conn,String tableName) {
-		TableConfig tableCfg = conn.getDataSource().getConfig().findTableConfig(tableName);
+	protected TableConfig getTableCfg(RouterDataSource ds,String tableName) {
+		TableConfig tableCfg = ds.getConfig().findTableConfig(tableName);
 		if (tableCfg ==null) new TablesplitException("The table is configed as a splate table."+tableName);
 		return tableCfg;
 	}

@@ -10,15 +10,16 @@ import java.util.List;
 import net.jplugin.common.kits.AssertKit;
 import net.jplugin.common.kits.StringKit;
 import net.jplugin.core.das.api.DataSourceFactory;
+import net.jplugin.core.das.dds.api.IConnectionSettable;
+import net.jplugin.core.das.dds.impl.EmptyStatement;
 import net.jplugin.core.das.route.api.DataSourceInfo;
 import net.jplugin.core.das.route.api.TablesplitException;
 import net.jplugin.core.das.route.impl.CombinedSelectContext;
-import net.jplugin.core.das.route.impl.conn.EmptyStatement;
 import net.jplugin.core.das.route.impl.conn.mulqry.CombinedSqlParser.ParseResult;
 import net.jplugin.core.das.route.impl.conn.mulqry.rswrapper.WrapperManager;
 import net.jplugin.core.das.route.impl.sqlhandler2.AbstractCommandHandler2;
 
-public class CombinedStatement extends EmptyStatement{
+public class CombinedStatement extends EmptyStatement implements IConnectionSettable{
 	public enum CommandType{SELECT,UPDATE,INSERT,DELETE}
 	
 	protected List<Statement> statementList = new ArrayList();
@@ -33,9 +34,9 @@ public class CombinedStatement extends EmptyStatement{
 
 	
 	
-	public CombinedStatement(Connection c){
-		this.conn = c;
-	}
+//	public CombinedStatement(Connection c){
+//		this.conn = c;
+//	}
 	@Override
 	public final boolean execute(String sql) throws SQLException {
 		this.parseAndComputeTypeAndMakeSelectContext(sql);
@@ -240,6 +241,11 @@ public class CombinedStatement extends EmptyStatement{
 	@Override
 	public boolean isClosed() throws SQLException {
 		return this.closed;
+	}
+
+	@Override
+	public void setConnection(Connection conn) {
+		this.conn = conn;
 	}
 
 	

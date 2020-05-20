@@ -35,7 +35,7 @@ public class InsertHandler2 extends AbstractCommandHandler2 {
 		//下面一句没有也没报错
 		super.setTableName(tablename);
 
-		TableConfig tableCfg = this.getTableCfg(this.connetion, tablename);
+		TableConfig tableCfg = this.getTableCfg(this.dataSource, tablename);
 		String keyField = tableCfg.getKeyField();
 
 		List<Column> columns = insertStmt.getColumns();

@@ -2,17 +2,18 @@ package net.jplugin.core.das.route.impl.conn.mulqry;
 
 import java.sql.Connection;
 
-import net.jplugin.core.das.route.impl.conn.RouterConnection;
+import net.jplugin.core.das.dds.impl.DummyConnection;
+//import net.jplugin.core.das.route.impl.conn.RouterConnection;
 
 public class CombineStatementFactory {
 	
 	
-	public static CombinedStatement create(Connection conn){
-		return new CombinedStatement(conn);
+	public static CombinedStatement create(){
+		return new CombinedStatement();
 	}
 	
-	public static CombinedPreparedStatement createPrepared(RouterConnection connection,String sql){
-		return new CombinedPreparedStatement(connection,sql);
+	public static CombinedPreparedStatement createPrepared(String sql){
+		return new CombinedPreparedStatement(sql);
 	}
 	
 //	public static CombinedStatement create(String[] dataSources,String[] sqls){

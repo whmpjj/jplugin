@@ -86,11 +86,13 @@ public class SqlMonitor {
 
 	private static Object setAndRethrow(SqlMonitorListenerContext c, Exception e) throws SQLException {
 		c.setException(e);
-		if (e instanceof RuntimeException)
-			throw (RuntimeException) e;
+		
 		if (e instanceof SQLException)
 			throw (SQLException) e;
-		throw new RuntimeException(e);
+		if (e.getCause()!=null && e.getCause() instanceof SQLException)
+			throw (SQLException)e.getCause();
+		throw new SQLException(e);
+		
 	}
 
 	public static ResultSet getResultSet(StatemenWrapper stmt,SqlCall sc) throws SQLException {

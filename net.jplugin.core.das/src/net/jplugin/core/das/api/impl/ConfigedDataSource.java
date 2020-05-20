@@ -7,9 +7,13 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 
 import net.jplugin.common.kits.ReflactKit;
+import net.jplugin.common.kits.StringKit;
 import net.jplugin.core.config.api.ConfigFactory;
 import net.jplugin.core.das.api.DataSourceFactory;
+import net.jplugin.core.das.dds.api.AbstractRouterDataSource;
+import net.jplugin.core.das.dds.api.IRouterDataSource;
 import net.jplugin.core.das.route.api.RouterDataSource;
+import net.jplugin.core.das.route.api.RouterException;
 
 public class ConfigedDataSource {
 	/**
@@ -41,13 +45,27 @@ public class ConfigedDataSource {
 		if (routeFlag!=null) routeFlag.trim();
 		
 		if ("true".equalsIgnoreCase(routeFlag)){
-			RouterDataSource ds = new RouterDataSource(group);
-			ds.config(map);
+			String routeDatasourceClass = map.get("route-datasource-class");
+			if (StringKit.isNull(routeDatasourceClass))
+				routeDatasourceClass = RouterDataSource.class.getName();//默认采用这个Datasource类名
+			
+			AbstractRouterDataSource ds = makeRouteDataSource(routeDatasourceClass,group,map);
 			return ds;
 		}else{
 			DataSource ds = createJdbcDataSource(group, map);
 			return ds;
 		}
+	}
+
+	private static AbstractRouterDataSource makeRouteDataSource(String routeDatasourceClass, String dsname,Map<String, String> map) {
+		AbstractRouterDataSource o;
+		try {
+			o = (AbstractRouterDataSource) Class.forName(routeDatasourceClass).newInstance();
+		} catch (Exception e) {
+			throw new RouterException("create instance error:"+routeDatasourceClass,e);
+		}
+		o.init(dsname, map);
+		return o;
 	}
 
 	private static DataSource createJdbcDataSource(String group, Map<String, String> map) {

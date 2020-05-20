@@ -22,17 +22,18 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
 
-import net.jplugin.core.das.route.impl.conn.EmptyStatement;
+import net.jplugin.core.das.dds.api.IConnectionSettable;
+import net.jplugin.core.das.dds.impl.EmptyStatement;
 
 /**
  * @author LiuHang
  */
-public class NoneResultStatement extends EmptyStatement implements PreparedStatement {
+public class NoneResultStatement extends EmptyStatement implements PreparedStatement,IConnectionSettable {
 	private Connection conn;
 	
-	public NoneResultStatement(Connection c){
-		this.conn = c;
-	}
+//	public NoneResultStatement(Connection c){
+//		this.conn = c;
+//	}
 	@Override
 	public ResultSet executeQuery(String sql) throws SQLException {
 		throw new RuntimeException("not support");
@@ -330,6 +331,11 @@ public class NoneResultStatement extends EmptyStatement implements PreparedState
 
 	@Override
 	public void setNClob(int parameterIndex, Reader reader) throws SQLException {
+	}
+
+	@Override
+	public void setConnection(Connection conn) {
+		this.conn = conn;
 	}
 
 }

@@ -1,48 +1,68 @@
 package net.jplugin.core.das.dds.api;
 
-import java.util.Map;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
+import java.util.logging.Logger;
+import javax.sql.DataSource;
+import net.jplugin.core.das.dds.impl.DummyConnection;
 
-public abstract class AbstractRouterDataSource {
-	public abstract void init(Map<String,String> config);
-	
-	/**
-	 * <pre>
-	 * 如果这里返回true，则后面会在有Sql时调用getTargetResult。
-	 * 否则在获取Connection时调用getTargetDataSource。
-	 * 后者速度更快，成本更低.
-	 * </pre>
-	 * @return
-	 */
-	public abstract boolean resolveWithSql();
-	
-	/**
-	 * 在获取Connection时调用，需要配合resolveWithSql返回false
-	 * @return
-	 */
-	public abstract String getTargetDataSource();
-	
-	/**
-	 * 在有sql时调用，需要配合resolveWithSql返回true
-	 * @param sql
-	 * @return
-	 */
-	public abstract Result getTargetResult(String sql);
-	
-	public static class Result{
-		String targetDs;
-		String targetSql;
-		public String getTargetDs() {
-			return targetDs;
+public abstract class AbstractRouterDataSource implements IRouterDataSource, DataSource {
+	private PrintWriter logger;
+
+	@Override
+	public Connection getConnection() throws SQLException {
+		Connection conn = this.getTargetConnBefConnect();
+		if (conn!=null) {
+			return conn;
+		}else {
+			return DummyConnection.create(this);
 		}
-		public void setTargetDs(String targetDs) {
-			this.targetDs = targetDs;
-		}
-		public String getTargetSql() {
-			return targetSql;
-		}
-		public void setTargetSql(String targetSql) {
-			this.targetSql = targetSql;
-		}
-		
 	}
+	
+
+	@Override
+	public Connection getConnection(String username, String password) throws SQLException {
+		throw new RuntimeException("not support");
+	}
+
+
+	@Override
+	public PrintWriter getLogWriter() throws SQLException {
+		return logger;
+	}
+
+	@Override
+	public void setLogWriter(PrintWriter out) throws SQLException {
+		this.logger = out;
+	}
+
+	@Override
+	public void setLoginTimeout(int seconds) throws SQLException {
+	}
+
+	@Override
+	public int getLoginTimeout() throws SQLException {
+		return 0;
+	}
+
+	@Override
+	public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+		return null;
+	}
+
+	@Override
+	public <T> T unwrap(Class<T> iface) throws SQLException {
+		if (iface.equals(this.getClass()))
+			return (T) this;
+		else
+			throw new RuntimeException("can't unwarp");
+	}
+
+	@Override
+	public boolean isWrapperFor(Class<?> iface) throws SQLException {
+		throw new RuntimeException("not impl");
+	}
+
 }
