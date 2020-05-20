@@ -1026,4 +1026,27 @@ public class StringKit {
 		return s.substring(0,pos)+replacement + s.substring(pos + toReplace.length());
 	}
 
+//	public static Map<String, String> trim(Map<String, String> c) {
+//		Map<String,String> result = new HashMap<String, String>();
+//		for (Entry<String, String> en:c.entrySet()) {
+//			String k = trim(en.getKey());
+//			String v = trim(en.getValue());
+//			if (StringKit.isNotNull(k)) {
+//				result.put(k, v);
+//			}
+//		}
+//		return result;
+//	}
+
+	public static String[] splitStrAndTrim(String str, String spliter) {
+		String[] result = splitStr(str, spliter);
+		if (result==null)
+			return null;
+		String[] newArr = new String[result.length];
+		for (int i=0;i<result.length;i++) {
+			newArr[i] = result[i].trim();
+		}
+		return newArr;
+	}
+
 }
