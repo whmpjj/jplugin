@@ -199,10 +199,17 @@ public class TransactionManagerImpl implements TransactionManager {
 	 */
 	public void addTransactionHandler(TransactionHandler txHandler) {
 		TransactionHandler[] newhandlers = new TransactionHandler[ handlers.length  +1];
+//		for (int i=0;i<handlers.length;i++){
+//			newhandlers[i]=handlers[i];
+//		}
+//		newhandlers[newhandlers.length-1] = txHandler;
+		
+		//！2020-5-20修改：调整增加Handler时的顺序。后加的放在前面先执行。因为Hiberinate最后加，但是在执行过程中会调用其他的数据源的操作，所有需要先执行。
 		for (int i=0;i<handlers.length;i++){
-			newhandlers[i]=handlers[i];
+			newhandlers[i+1]=handlers[i];
 		}
-		newhandlers[newhandlers.length-1] = txHandler;
+		newhandlers[0] = txHandler;
+		
 		handlers = newhandlers;
 	}
 
