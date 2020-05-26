@@ -1,5 +1,6 @@
 package net.jplugin.core.mtenant;
 
+import net.jplugin.core.config.ExtensionConfigHelper;
 import net.jplugin.core.config.api.ConfigFactory;
 import net.jplugin.core.das.ExtensionDasHelper;
 import net.jplugin.core.kernel.api.AbstractPlugin;
@@ -10,6 +11,7 @@ import net.jplugin.core.kernel.api.PluginEnvirement;
 import net.jplugin.core.mtenant.api.ITenantListProvidor;
 import net.jplugin.core.mtenant.api.ITenantStoreStrategyProvidor;
 import net.jplugin.core.mtenant.api.TenantListProvidorManager;
+import net.jplugin.core.mtenant.dds.DDSConfigChangeHandler;
 import net.jplugin.core.mtenant.handler.SqlMultiTenantHanlderSchemaImpl;
 import net.jplugin.core.mtenant.handler2.SqlHandlerVisitorForMixed;
 import net.jplugin.core.mtenant.handler2.SqlMultiTenantHanlderMixedImpl;
@@ -82,9 +84,13 @@ public class Plugin extends AbstractPlugin{
 			//检查空值
 			ExtensionWebHelper.addServiceFilterExtension(this, TenantIDValidator.class);
 			ExtensionWebHelper.addWebCtrlFilterExtension(this, TenantIDValidator.class);
+			
+			ExtensionConfigHelper.addConfigChangeHandlerExtension(this, "*", DDSConfigChangeHandler.class);
 		}else{
 			PluginEnvirement.INSTANCE.getStartLogger().log("@@@ mtenant DISABLED!");
 		}
+		
+		
 	}
 	
 	private void registeSqlRefectorExtension() {
