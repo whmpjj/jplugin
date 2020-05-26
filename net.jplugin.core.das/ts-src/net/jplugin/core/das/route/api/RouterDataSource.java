@@ -177,4 +177,10 @@ public class RouterDataSource extends AbstractRouterDataSource{
 			result.setResultSql(shr.getEncodedSql());
 		return result;
 	}
+
+	@Override
+	public PreparedStatement getTargetPreparedStmtBefCreate(IRouterDataSource routeDatasource, String sql,
+			int autoGenKeys) throws SQLException {
+		throw new SQLException("NOT SUPPORT");
+	}
 }

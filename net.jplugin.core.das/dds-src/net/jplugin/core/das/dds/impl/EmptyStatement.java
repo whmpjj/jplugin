@@ -124,10 +124,10 @@ public abstract class EmptyStatement implements Statement{
 		throw new RuntimeException("not support");
 	}
 
-	@Override
-	public ResultSet getGeneratedKeys() throws SQLException {
-		throw new RuntimeException("not support");
-	}
+//	@Override
+//	public ResultSet getGeneratedKeys() throws SQLException {
+//		throw new RuntimeException("not support");
+//	}
 
 	@Override
 	public int getResultSetHoldability() throws SQLException {

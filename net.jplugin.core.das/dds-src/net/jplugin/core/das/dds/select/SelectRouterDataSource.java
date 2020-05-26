@@ -38,6 +38,13 @@ public class SelectRouterDataSource extends AbstractRouterDataSource {
 		String target = computeTargetDataSource(sql);
 		return DataSourceFactory.getDataSource(target).getConnection().prepareStatement(sql);
 	}
+	
+	@Override
+	public PreparedStatement getTargetPreparedStmtBefCreate(IRouterDataSource routeDatasource, String sql,
+			int autoGenKeys) throws SQLException {
+		String target = computeTargetDataSource(sql);
+		return DataSourceFactory.getDataSource(target).getConnection().prepareStatement(sql,autoGenKeys);
+	}
 
 	private String computeTargetDataSource(String sql) {
 		Statement stmt = RouterExecutionContext.get().getStatement(sql);
@@ -61,4 +68,6 @@ public class SelectRouterDataSource extends AbstractRouterDataSource {
 			List<Object> params) throws SQLException {
 		throw new RouterException("shoudln't come here");
 	}
+
+
 }

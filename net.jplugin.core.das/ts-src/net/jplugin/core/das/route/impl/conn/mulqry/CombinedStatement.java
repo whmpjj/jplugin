@@ -248,6 +248,11 @@ public class CombinedStatement extends EmptyStatement implements IConnectionSett
 		this.conn = conn;
 	}
 
+	@Override
+	public ResultSet getGeneratedKeys() throws SQLException {
+		throw new TablesplitException("not support");
+	}
+
 	
 	
 }

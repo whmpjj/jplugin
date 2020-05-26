@@ -338,4 +338,9 @@ public class NoneResultStatement extends EmptyStatement implements PreparedState
 		this.conn = conn;
 	}
 
+	@Override
+	public ResultSet getGeneratedKeys() throws SQLException {
+		throw new RuntimeException("not support");
+	}
+
 }

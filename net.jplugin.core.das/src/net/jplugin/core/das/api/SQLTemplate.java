@@ -123,6 +123,42 @@ public class SQLTemplate {
 		}
 		executeAndReturnCount(connection,sql,null,"CREATE");
 	}
+	
+	public static List<Long> executeInsertReturnGenKey(Connection conn,String sql,Object[] param) {
+		if (!sql.trim().toUpperCase().startsWith("INSERT")) {
+			throw new DataException("Not a insert sql");
+		}
+		Statement stmt = null;
+		try {
+			if (param == null || param.length == 0) {
+				stmt = conn.createStatement();
+				stmt.executeUpdate(sql,Statement.RETURN_GENERATED_KEYS);
+				return getGenKey(stmt);
+			} else {
+				stmt = conn.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+				for (int i = 0; i < param.length; i++) {
+					((PreparedStatement) stmt).setObject(i + 1, param[i]);
+				}
+				int ret = ((PreparedStatement) stmt).executeUpdate();
+				return getGenKey(stmt);
+			}
+		} catch (Exception e) {
+			throw new DataException(e.getMessage()+"SQL执行失败。 SQL="+sql, e);
+		}finally{
+			closeStmtQuiretly(stmt);
+		}
+	}
+	
+
+	private static List<Long> getGenKey(Statement stmt) throws SQLException {
+		ResultSet genkeys = stmt.getGeneratedKeys();
+		List<Long> ret = new ArrayList<Long>();
+		while(genkeys.next()) {
+			long key = genkeys.getLong(1);
+			ret.add(key);
+		}
+		return ret;
+	}
 
 	/**
 	 * @param connection

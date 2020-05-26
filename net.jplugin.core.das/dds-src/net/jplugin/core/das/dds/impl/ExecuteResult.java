@@ -17,6 +17,11 @@ public class ExecuteResult {
 		return -1;
 	}
 	
+	public ResultSet getGeneratedKeys() throws SQLException {
+		if (statement!=null) return statement.getGeneratedKeys();
+		else return null;
+	}
+	
 	public void clear() {
 		if (statement!=null){ //让它等于null，也只能是调用过clear方法一次造成的
 			if (!closeCalled){

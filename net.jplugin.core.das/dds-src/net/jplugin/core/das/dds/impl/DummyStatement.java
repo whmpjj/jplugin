@@ -158,4 +158,9 @@ public class DummyStatement extends EmptyStatement {
 		});
 	}
 
+	@Override
+	public ResultSet getGeneratedKeys() throws SQLException {
+		return this.executeResult.getGeneratedKeys();
+	}
+
 }

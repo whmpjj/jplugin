@@ -38,6 +38,10 @@ public interface IRouterDataSource {
 	 * @return
 	 */
 	public abstract PreparedStatement getTargetPreparedStmtBefCreate(IRouterDataSource routeDatasource,String sql) throws SQLException;
+
+
+	public abstract PreparedStatement getTargetPreparedStmtBefCreate(IRouterDataSource routeDatasource,String sql,int autoGenKeys) throws SQLException;
+
 	
 	/**
 	 * getTargetPreparedStmtBefCreate返回空时会调用这个方法

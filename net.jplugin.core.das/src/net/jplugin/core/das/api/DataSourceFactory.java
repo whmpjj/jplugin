@@ -70,7 +70,9 @@ public class DataSourceFactory {
 			}
 		}
 		//加入动态DataSource,动态数据源不会加DataSourceWrapper
-		addDynamicDataSourceToMap();
+		if ("true".equalsIgnoreCase(ConfigFactory.getStringConfig("platform.use-dynamic-datasource-old-version"))) {
+			addDynamicDataSourceToMap();
+		}
 	}
 	
 	private static void addDynamicDataSourceToMap() {
