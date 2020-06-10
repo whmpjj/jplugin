@@ -1,19 +1,32 @@
 package net.jplugin.core.das.dds;
 
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import javax.sql.DataSource;
 
+import net.jplugin.core.das.ExtensionDasHelper;
+import net.jplugin.core.das.dds.dsnamed.DsNamedDataSource;
+import net.jplugin.core.das.dds.select.SelectRouterDataSource;
+import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.CoreServicePriority;
+import net.jplugin.core.kernel.api.ExtensionPoint;
+import net.jplugin.core.kernel.api.PluginAnnotation;
+
+@PluginAnnotation
 public class Plugin extends AbstractBasicPlugin {
 
+	
+	
+	public Plugin() {
+		ExtensionDasHelper.addDynamisDataSourceTypeExtension(this,"ds-named-ds",DsNamedDataSource.class);
+		ExtensionDasHelper.addDynamisDataSourceTypeExtension(this,"select-ds",SelectRouterDataSource.class);
+	}
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public int getPrivority() {
-		// TODO Auto-generated method stub
-		return 0;
+		return CoreServicePriority.DAS + 2;
 	}
 
 }

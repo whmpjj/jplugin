@@ -4,6 +4,7 @@ import net.jplugin.core.das.api.IConnectionWrapperService;
 import net.jplugin.core.das.api.IDBSplitAlg;
 import net.jplugin.core.das.api.impl.DataSourceDefinition;
 import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.ClassDefine;
 import net.jplugin.core.kernel.api.Extension;
 
 public class ExtensionDasHelper {
@@ -34,6 +35,10 @@ public class ExtensionDasHelper {
 	
 	public static void addSqlRefactorExtension(AbstractBasicPlugin plugin,Class clz){
 		plugin.addExtension(Extension.create(Plugin.EP_SQL_REFACTOR, clz));
+	}
+	
+	public static void addDynamisDataSourceTypeExtension	(AbstractBasicPlugin plugin,String typeName,Class dataSourceClass){
+		plugin.addExtension(Extension.create(Plugin.EP_DYNAMIC_DATASOURCE_TYPE, typeName,ClassDefine.class,new String[][]{ {"clazz",dataSourceClass.getName()}}));
 	}
 	
 //	public static void addDynamicDataSourceProviderExtension(AbstractPlugin plugin,String name,Class clz){

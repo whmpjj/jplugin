@@ -10,6 +10,7 @@ import net.jplugin.common.kits.ReflactKit;
 import net.jplugin.common.kits.StringKit;
 import net.jplugin.core.config.api.ConfigFactory;
 import net.jplugin.core.das.api.DataSourceFactory;
+import net.jplugin.core.das.api.dds.DDSManager;
 import net.jplugin.core.das.dds.api.AbstractRouterDataSource;
 import net.jplugin.core.das.dds.api.IRouterDataSource;
 import net.jplugin.core.das.route.api.RouterDataSource;
@@ -45,9 +46,14 @@ public class ConfigedDataSource {
 		if (routeFlag!=null) routeFlag.trim();
 		
 		if ("true".equalsIgnoreCase(routeFlag)){
-			String routeDatasourceClass = map.get("route-datasource-class");
-			if (StringKit.isNull(routeDatasourceClass))
-				routeDatasourceClass = RouterDataSource.class.getName();//默认采用这个Datasource类名
+			String routeDatasourceType = map.get("route-datasource-type");
+			String routeDatasourceClass;
+			if (StringKit.isNull(routeDatasourceType)) {
+				routeDatasourceType = "db-table-split";
+			}
+			
+			Class clazz = DDSManager.me.getDataSourceClassByType(routeDatasourceType);
+			routeDatasourceClass = clazz.getName();
 			
 			AbstractRouterDataSource ds = makeRouteDataSource(routeDatasourceClass,group,map);
 			return ds;

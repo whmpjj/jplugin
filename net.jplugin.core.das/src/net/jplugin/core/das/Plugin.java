@@ -1,8 +1,11 @@
 package net.jplugin.core.das;
 
+import javax.sql.DataSource;
+
 import net.jplugin.core.das.api.DataSourceFactory;
 import net.jplugin.core.das.api.IConnectionWrapperService;
 import net.jplugin.core.das.api.IDynamicDataSourceProvider;
+import net.jplugin.core.das.api.dds.DDSManager;
 import net.jplugin.core.das.api.impl.ConnectionWrapperManager;
 import net.jplugin.core.das.api.impl.DataSourceDefinition;
 import net.jplugin.core.das.api.impl.DynamicDataSourceManager;
@@ -15,6 +18,7 @@ import net.jplugin.core.das.monitor.SqlMonitorListenerManager;
 import net.jplugin.core.das.sqlrefactor.SqlRefactorConnWrapperService;
 import net.jplugin.core.das.sqlrefactor.SqlRefactorManager;
 import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.ClassDefine;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.ExtensionPoint;
 
@@ -28,6 +32,7 @@ public class Plugin extends AbstractBasicPlugin {
 	public static final String EP_SQL_EXEC_FILTER = "EP_SQL_EXEC_FILTER";
 	public static final String EP_SQL_REFACTOR = "EP_SQL_REFACTOR";
 	public static final String EP_DYNAMIC_DS_PROVIDER = "EP_DYNAMIC_DS_PROVIDER";
+	public static final String EP_DYNAMIC_DATASOURCE_TYPE="EP_DYNAMIC_DATASOURCE_TYPE";
 	
 
 	public Plugin(){
@@ -38,6 +43,10 @@ public class Plugin extends AbstractBasicPlugin {
 		this.addExtensionPoint(ExtensionPoint.create(EP_SQL_EXEC_FILTER, ISqlExecFilter.class));
 		this.addExtensionPoint(ExtensionPoint.create(EP_SQL_REFACTOR, ISqlRefactor.class));
 		this.addExtensionPoint(ExtensionPoint.create(EP_DYNAMIC_DS_PROVIDER, IDynamicDataSourceProvider.class,true));
+		
+		this.addExtensionPoint(ExtensionPoint.create(EP_DYNAMIC_DATASOURCE_TYPE,ClassDefine.class,true));
+
+
 		
 		//用来监控sql的ConnectionWrapper，先注册的在里面一层，所以能看到外面包装造成的影响，应该能监控到Refactor
 		//以后的sql
@@ -55,6 +64,7 @@ public class Plugin extends AbstractBasicPlugin {
 	
 	public void onCreateServices() {
 //		DynamicDataSourceProviderManager.INSTANCE.init();
+		DDSManager.me.init();
 		DynamicDataSourceManager.INSTANCE.init();
 		DataSourceFactory.init();
 		ConnectionWrapperManager.init();
