@@ -6,7 +6,7 @@ package net.jplugin.core.kernel.api;
  * @version 创建时间：2015-2-4 下午01:39:45
  **/
 
-public abstract class AbstractPluginForTest extends AbstractPlugin{
+public abstract class AbstractPluginForTest extends AbstractBasicPlugin{
 	public final void init() {
 		try{
 			test();

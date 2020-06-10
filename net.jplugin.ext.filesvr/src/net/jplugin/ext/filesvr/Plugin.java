@@ -3,7 +3,7 @@ package net.jplugin.ext.filesvr;
 import net.jplugin.core.ctx.api.RuleServiceDefinition;
 import net.jplugin.core.event.api.EventAliasDefine;
 import net.jplugin.core.event.api.Channel.ChannelType;
-import net.jplugin.core.kernel.api.AbstractPlugin;
+import net.jplugin.core.kernel.api.AbstractBasicPlugin;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.Extension;
 import net.jplugin.core.kernel.api.ExtensionPoint;
@@ -27,7 +27,7 @@ import net.jplugin.ext.webasic.api.ObjectDefine;
  * @version 创建时间：2015-2-15 下午03:09:15
  **/
 
-public class Plugin extends AbstractPlugin{
+public class Plugin extends AbstractBasicPlugin{
 
 	public static final String CFG_MAXPICSIZE = "max-picsize";
 	public static final String CFG_MAXFILESIZE = "max-filesize";

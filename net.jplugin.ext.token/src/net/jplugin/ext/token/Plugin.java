@@ -3,14 +3,14 @@ package net.jplugin.ext.token;
 import net.jplugin.core.ctx.ExtensionCtxHelper;
 //import net.jplugin.core.das.hib.Plugin;
 import net.jplugin.core.das.hib.api.ExtensionDasHelper;
-import net.jplugin.core.kernel.api.AbstractPlugin;
+import net.jplugin.core.kernel.api.AbstractBasicPlugin;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.PluginEnvirement;
 import net.jplugin.ext.token.api.ITokenService;
 import net.jplugin.ext.token.impl.DBToken;
 import net.jplugin.ext.token.impl.TokenServiceImpl;
 
-public class Plugin extends AbstractPlugin {
+public class Plugin extends AbstractBasicPlugin {
 	public Plugin() {
 		if (net.jplugin.core.das.hib.Plugin.noHib()) {
 			PluginEnvirement.INSTANCE.getStartLogger().log("Token plugin not start!");

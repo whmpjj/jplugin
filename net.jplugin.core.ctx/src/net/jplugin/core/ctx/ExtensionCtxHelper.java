@@ -17,7 +17,7 @@ import net.jplugin.core.ctx.api.BindRuleServiceSet;
 import net.jplugin.core.ctx.api.RuleServiceDefinition;
 import net.jplugin.core.ctx.impl.filter4clazz.RuleCallFilterDefineBean;
 import net.jplugin.core.ctx.kits.PropertyFilterKits;
-import net.jplugin.core.kernel.api.AbstractPlugin;
+import net.jplugin.core.kernel.api.AbstractBasicPlugin;
 import net.jplugin.core.kernel.api.Extension;
 import net.jplugin.core.kernel.api.PluginEnvirement;
 
@@ -28,19 +28,19 @@ import net.jplugin.core.kernel.api.PluginEnvirement;
  **/
 
 public class ExtensionCtxHelper {
-	public static void addRuleExtension(AbstractPlugin plugin,String name,Class intf,Class impl){
+	public static void addRuleExtension(AbstractBasicPlugin plugin,String name,Class intf,Class impl){
 		plugin.addExtension(Extension.create(net.jplugin.core.ctx.Plugin.EP_RULE_SERVICE, name,RuleServiceDefinition.class,new String[][]{{"interf",intf.getName()},{"impl",impl.getName()}} ));
 	}
 	
-	public static void addRuleExtension(AbstractPlugin plugin,Class intf,Class impl){
+	public static void addRuleExtension(AbstractBasicPlugin plugin,Class intf,Class impl){
 		plugin.addExtension(Extension.create(net.jplugin.core.ctx.Plugin.EP_RULE_SERVICE, intf.getName(),RuleServiceDefinition.class,new String[][]{{"interf",intf.getName()},{"impl",impl.getName()}} ));
 	}
 	
-	public static void addTxMgrListenerExtension(AbstractPlugin plugin,Class impl){
+	public static void addTxMgrListenerExtension(AbstractBasicPlugin plugin,Class impl){
 		plugin.addExtension(Extension.create(net.jplugin.core.ctx.Plugin.EP_TXMGR_LISTENER, impl ));
 	}
 
-	public static void addRuleServiceFilterExtension(AbstractPlugin plugin,Class impl){
+	public static void addRuleServiceFilterExtension(AbstractBasicPlugin plugin,Class impl){
 		plugin.addExtension(Extension.create(net.jplugin.core.ctx.Plugin.EP_RULE_SERVICE_FILTER, impl ));
 	}
 	
@@ -50,7 +50,7 @@ public class ExtensionCtxHelper {
 	 * @param applyTo  格式：com.xxx.zz.Class1,com.dd.zz.Class2:set*,com.zz.yy.*:get*
 	 * @param sequence 优先级
 	 */
-	public static void addRuleMethodFilterExtension(AbstractPlugin plugin,Class impl,String applyTo,Integer sequence){
+	public static void addRuleMethodFilterExtension(AbstractBasicPlugin plugin,Class impl,String applyTo,Integer sequence){
 		plugin.addExtension(Extension.create(net.jplugin.core.ctx.Plugin.EP_RULE_METHOD_INTERCEPTOR, RuleCallFilterDefineBean.class,new String[][]{{"filterClass",impl.getName()},{"applyTo",applyTo},{"priority",sequence.toString()}}));
 	}
 	
@@ -59,7 +59,7 @@ public class ExtensionCtxHelper {
 	 * @param p
 	 * @param pkgPath
 	 */
-	public static void autoBindRuleMethodInterceptor(AbstractPlugin p, String pkgPath) {
+	public static void autoBindRuleMethodInterceptor(AbstractBasicPlugin p, String pkgPath) {
 		for(Class c:p.filterContainedClasses(pkgPath,BindRuleMethodInterceptor.class)){
 			BindRuleMethodInterceptor anno = (BindRuleMethodInterceptor) c.getAnnotation(BindRuleMethodInterceptor.class);
 			handleOneRuleMethodFilterBind(p, c, anno);
@@ -73,7 +73,7 @@ public class ExtensionCtxHelper {
 		}
 	}
 
-	private static void handleOneRuleMethodFilterBind(AbstractPlugin p, Class c, Annotation a) {
+	private static void handleOneRuleMethodFilterBind(AbstractBasicPlugin p, Class c, Annotation a) {
 		BindRuleMethodInterceptor anno = (BindRuleMethodInterceptor) a;
 		String applyTo = anno.applyTo();
 		
@@ -91,7 +91,7 @@ public class ExtensionCtxHelper {
 	 * @param p
 	 * @param pkgPath
 	 */
-	public static void autoBindRuleServiceExtension(AbstractPlugin p, String pkgPath) {
+	public static void autoBindRuleServiceExtension(AbstractBasicPlugin p, String pkgPath) {
 		for(Class c:p.filterContainedClasses(pkgPath,BindRuleService.class)){
 			BindRuleService anno = (BindRuleService) c.getAnnotation(BindRuleService.class);
 			handleOneRuleBind(p, c, anno);
@@ -105,7 +105,7 @@ public class ExtensionCtxHelper {
 		}
 	}
 
-	private static void handleOneRuleBind(AbstractPlugin p, Class c, Annotation a) {
+	private static void handleOneRuleBind(AbstractBasicPlugin p, Class c, Annotation a) {
 		BindRuleService anno = (BindRuleService) a;
 		Class interfaceClazz = anno.interfaceClass();
 		if (interfaceClazz.getName().equals(DefaultInterface.class.getName())){
@@ -149,7 +149,7 @@ public class ExtensionCtxHelper {
 	 * @param implPkgPath  实现类相对于Plugin类的相对包路径。
 	 */
 	@Deprecated
-	public static void autoAddRuleServiceExtension(AbstractPlugin p, String apiPkgPath, String implPkgPath) {
+	public static void autoAddRuleServiceExtension(AbstractBasicPlugin p, String apiPkgPath, String implPkgPath) {
 		String pkg = p.getClass().getPackage().getName() + apiPkgPath;
 		ResolverKit kit = new ResolverKit<>();
 		kit.find(pkg, (c) -> {

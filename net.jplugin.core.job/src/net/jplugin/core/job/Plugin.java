@@ -1,9 +1,9 @@
 package net.jplugin.core.job;
 
-import net.jplugin.core.kernel.api.AbstractPlugin;
+import net.jplugin.core.kernel.api.AbstractBasicPlugin;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 
-public class Plugin extends AbstractPlugin{
+public class Plugin extends AbstractBasicPlugin{
 
 	public void onCreateServices() {
 		// TODO Auto-generated method stub

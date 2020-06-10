@@ -24,12 +24,12 @@ import net.jplugin.core.das.route.impl.conn.mulqry.rswrapper.LimitWrapperControl
 import net.jplugin.core.das.route.impl.conn.mulqry.rswrapper.WrapperController;
 import net.jplugin.core.das.route.impl.conn.mulqry.rswrapper.WrapperManager;
 import net.jplugin.core.das.route.impl.algms.MonthAlgm;
-import net.jplugin.core.kernel.api.AbstractPlugin;
+import net.jplugin.core.kernel.api.AbstractBasicPlugin;
 import net.jplugin.core.kernel.api.ClassDefine;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.ExtensionPoint;
 
-public class Plugin extends AbstractPlugin {
+public class Plugin extends AbstractBasicPlugin {
 	public static final String EP_MULQRY_RS_WRAPCTRL = "EP_MULQRY_RS_WRAPCTRL";
 	public static String EP_TS_ALGM="EP_TS_ALGM";
 	

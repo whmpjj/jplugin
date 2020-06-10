@@ -5,7 +5,9 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Vector;
 
+import net.jplugin.common.kits.AssertKit;
 import net.jplugin.common.kits.ReflactKit;
+import net.jplugin.common.kits.StringKit;
 import net.jplugin.core.kernel.impl.PropertyUtil;
 
 /**
@@ -22,7 +24,72 @@ public class Extension {
 	Vector<Property> propertyList=new Vector<Property>(1);
 	
 	Object extensionObject;
+
 	
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer("refPoint:"+refExtensionPoint+" clazz:"+clazz.getName()+" name:"+name);
+		sb.append(" property:[");
+		for (int i=0;i<propertyList.size();i++) {
+			sb.append(propertyList.get(i).key+"-"+propertyList.get(i).value);
+			sb.append("  ");
+		}
+		sb.append("]");
+		return sb.toString();
+	}
+	/**
+	 * 实现规则，对象Equal时，必须有相同的hashCode.
+	 * 这里 name为null也不影响结果
+	 */
+	@Override
+	public int hashCode() {
+		return (refExtensionPoint+clazz.getName()+name).hashCode();
+	}
+	
+
+	/**
+	 * 重复 Extension的标准：重复的refExtensionPoint、clazz、name、propertyList
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (! (obj instanceof Extension))
+			return false;
+		else {
+			Extension e = (Extension) obj;
+			return  
+					clazz.equals(e.getClazz())
+					&&
+					(refExtensionPoint.equals(e.refExtensionPoint))
+					&&
+					 StringKit.eqOrNull(name, e.name)
+					&&
+					 checkPropertyDup(propertyList,e.propertyList);
+		}
+	}
+		
+	private boolean checkPropertyDup(Vector<Property> p1, Vector<Property> p2) {
+		//長度不同
+		if (p1.size()!=p2.size()) 
+			return false;
+		
+		//長度相同，對每一個屬性看能否找到
+		for (Property item:p1) {
+			
+			boolean found=false;
+			for (Property o:p2) {
+				if (StringKit.eqOrNull(item.key,o.key) && StringKit.eqOrNull(item.value, o.value)) {
+					found = true;
+					break;
+				}
+			}
+			//如果上面的循環執行完畢，仍然沒有找到
+			if (!found)
+				return false;
+		}
+		//相同
+		return true;
+	}
+
 	public String getExtensionPointName(){
 		return this.refExtensionPoint;
 	}
@@ -136,5 +203,32 @@ public class Extension {
 			}
 		}
 		return ext;
+	}
+	
+	public static void main(String[] args) {
+		Extension e1 = Extension.create("a", Extension.class,new String[][] {{"a1","b1"},{"a2","v2"}});
+		Extension e2 = Extension.create("a", Extension.class,new String[][] {{"a1","b1"},{"a2","v2"}});
+		AssertKit.assertTrue(e1.equals(e2));
+		
+		e1 = Extension.create("a", Extension.class,new String[][] {{"a1","b1"},{"a2","v2"}});
+		e2 = Extension.create("a", Extension.class,new String[][] {{"a1","b1"},{"a2","v3"}});
+		AssertKit.assertFalse(e1.equals(e2));
+		
+		e1 = Extension.create("a", null,Extension.class,new String[][] {{"a1","b1"},{"a2","v2"}});
+		e2 = Extension.create("a", null,Extension.class,new String[][] {{"a1","b1"},{"a2","v2"}});
+		AssertKit.assertTrue(e1.equals(e2));
+		
+		e1 = Extension.create("a", null,Extension.class,new String[][] {{"a1","b1"},{"a2","v2"}});
+		e2 = Extension.create("a", "b",Extension.class,new String[][] {{"a1","b1"},{"a2","v2"}});
+		AssertKit.assertFalse(e1.equals(e2));
+		
+		e1 = Extension.create("a", Extension.class);
+		e2 = Extension.create("a", Extension.class);
+		AssertKit.assertTrue(e1.equals(e2));
+		
+		e1 = Extension.create("a",Extension.class);
+		e2 = Extension.create("a", Extension.class);
+		AssertKit.assertTrue(e1.equals(e2));
+		
 	}
 }

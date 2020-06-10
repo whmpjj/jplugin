@@ -1,6 +1,6 @@
 package net.jplugin.ext.dict;
 
-import net.jplugin.core.kernel.api.AbstractPlugin;
+import net.jplugin.core.kernel.api.AbstractBasicPlugin;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.ExtensionPoint;
 import net.jplugin.core.kernel.api.PluginEnvirement;
@@ -13,7 +13,7 @@ import net.jplugin.ext.dict.impl.DictionaryServiceImpl;
 import net.jplugin.ext.dict.test.TestDictProvider;
 import net.jplugin.ext.webasic.ExtensionWebHelper;
 
-public class Plugin extends AbstractPlugin{
+public class Plugin extends AbstractBasicPlugin{
 	public static final String EP_DICT_PROVIDER = "EP_DICT_PROVIDER";
 
 	public Plugin() {

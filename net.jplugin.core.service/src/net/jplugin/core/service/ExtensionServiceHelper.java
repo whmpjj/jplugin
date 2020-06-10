@@ -3,7 +3,7 @@ package net.jplugin.core.service;
 import java.lang.annotation.Annotation;
 
 import net.jplugin.common.kits.StringKit;
-import net.jplugin.core.kernel.api.AbstractPlugin;
+import net.jplugin.core.kernel.api.AbstractBasicPlugin;
 import net.jplugin.core.kernel.api.Extension;
 import net.jplugin.core.kernel.api.PluginEnvirement;
 import net.jplugin.core.service.api.BindService;
@@ -17,7 +17,7 @@ import net.jplugin.core.service.api.Constants;
  **/
 
 public class ExtensionServiceHelper {
-	public static void addServiceExtension(AbstractPlugin plugin,String name,Class impl){
+	public static void addServiceExtension(AbstractBasicPlugin plugin,String name,Class impl){
 		plugin.addExtension(Extension.create(Constants.EP_SERVICE, name,impl));
 	}
 	
@@ -26,7 +26,7 @@ public class ExtensionServiceHelper {
 	 * @param p
 	 * @param pkgPath
 	 */
-	public static void autoBindServiceExtension(AbstractPlugin p, String pkgPath) {
+	public static void autoBindServiceExtension(AbstractBasicPlugin p, String pkgPath) {
 		for(Class c:p.filterContainedClasses(pkgPath,BindService.class)){
 			BindService anno = (BindService) c.getAnnotation(BindService.class);
 			handleOneBind(p, c, anno);
@@ -40,7 +40,7 @@ public class ExtensionServiceHelper {
 		}
 	}
 
-	private static void handleOneBind(AbstractPlugin p, Class c, Annotation a) {
+	private static void handleOneBind(AbstractBasicPlugin p, Class c, Annotation a) {
 		BindService anno = (BindService) a;
 		Class interfaceClazz = anno.interfaceClass();
 		if (interfaceClazz.getName().equals(net.jplugin.core.service.api.BindService.DefaultInterface.class.getName())){

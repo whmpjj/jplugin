@@ -1,8 +1,8 @@
 package net.jplugin.core.das.dds;
 
-import net.jplugin.core.kernel.api.AbstractPlugin;
+import net.jplugin.core.kernel.api.AbstractBasicPlugin;
 
-public class Plugin extends AbstractPlugin {
+public class Plugin extends AbstractBasicPlugin {
 
 	@Override
 	public void init() {

@@ -35,6 +35,10 @@ public class StringKit {
 		return str;
 	}
 	
+	public static boolean eqOrNull(String s1,String s2) {
+		return (s1==null && s2==null) || (s1!=null && s1.equals(s2));
+	}
+	
 	/**
 	 * 去除字符串两端空格 如果字符串是空的返加null
 	 * 

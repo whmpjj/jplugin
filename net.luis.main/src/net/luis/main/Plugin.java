@@ -3,7 +3,7 @@ package net.luis.main;
 import net.jplugin.core.ctx.api.RuleServiceDefinition;
 import net.jplugin.core.event.api.EventAliasDefine;
 import net.jplugin.core.event.api.Channel.ChannelType;
-import net.jplugin.core.kernel.api.AbstractPlugin;
+import net.jplugin.core.kernel.api.AbstractBasicPlugin;
 import net.jplugin.core.kernel.api.Extension;
 import net.jplugin.core.kernel.api.ExtensionPoint;
 import net.jplugin.core.kernel.api.PluginAnnotation;
@@ -36,7 +36,7 @@ import net.luis.main.testrule.Rule1Impl;
 
 
 @PluginAnnotation
-public class Plugin extends AbstractPlugin{
+public class Plugin extends AbstractBasicPlugin{
 	public Plugin(){
 		addExtension(Extension.create(net.jplugin.core.ctx.Plugin.EP_RULE_SERVICE, Rule1.class.getName(),RuleServiceDefinition.class,new String[][]{{"interf",Rule1.class.getName()},{"impl",Rule1Impl.class.getName()}} ));
 		addExtension(Extension.create(net.jplugin.core.ctx.Plugin.EP_RULE_SERVICE, IDataTest.class.getName(),RuleServiceDefinition.class,new String[][]{{"interf",IDataTest.class.getName()},{"impl",DataTestImpl.class.getName()}} ));

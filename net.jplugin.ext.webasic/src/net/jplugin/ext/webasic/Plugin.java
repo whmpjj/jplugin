@@ -3,7 +3,7 @@ package net.jplugin.ext.webasic;
 import net.jplugin.common.kits.filter.IFilter;
 import net.jplugin.common.kits.http.ContentKit;
 import net.jplugin.core.config.api.ConfigFactory;
-import net.jplugin.core.kernel.api.AbstractPlugin;
+import net.jplugin.core.kernel.api.AbstractBasicPlugin;
 import net.jplugin.core.kernel.api.AutoBindExtensionManager;
 import net.jplugin.core.kernel.api.ClassDefine;
 import net.jplugin.core.kernel.api.CoreServicePriority;
@@ -36,7 +36,7 @@ import net.jplugin.ext.webasic.impl.web.webex.WebExControllerSet;
  * @version 创建时间：2015-2-2 下午04:57:02
  **/
 
-public class Plugin extends AbstractPlugin{
+public class Plugin extends AbstractBasicPlugin{
 
 	public static final String EP_WEBFILTER = "EP_WEBFILTER";
 	public static final String EP_CONTROLLERSET = "EP_CONTROLLERSET";

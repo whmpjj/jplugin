@@ -237,6 +237,7 @@ public class PluginEnvirement {
 			}
 			registry.afterPluginsContruct();
 			registry.sort();
+			registry.handleDuplicateExtension();
 			registry.valid();
 			this.stateLevel = STAT_LEVEL_LOADING;
 			registry.load();

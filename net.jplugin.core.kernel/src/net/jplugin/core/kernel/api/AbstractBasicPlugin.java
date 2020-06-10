@@ -17,7 +17,7 @@ import net.jplugin.common.kits.reso.ResolverKit;
  * @version 创建时间：2015-2-22 上午11:43:12
  **/
 
-public abstract class AbstractPlugin implements IPlugin {
+public abstract class AbstractBasicPlugin implements IPlugin {
 
 	private List<ExtensionPoint> extensionPoints = new ArrayList<ExtensionPoint>();
 	private List<Extension> extensions = new ArrayList<Extension>();
@@ -26,15 +26,17 @@ public abstract class AbstractPlugin implements IPlugin {
 	private Hashtable<String,String> configreus = new Hashtable<String, String>();
 	private Set<Class> containedClasses = null;
 
+
+	
 	@Override
 	public void onCreateServices() {
 	}
 	
+	/**
+	 *  从1.9.0开始，这个方法不再需要调用了，为了保证兼容，暂时保留为空方法
+	 */
+	@Deprecated
 	protected void searchAndBindExtensions(){
-		List<IBindExtensionHandler> handlers = AutoBindExtensionManager.INSTANCE.getHandlers();
-		for (IBindExtensionHandler h:handlers){
-			h.handle(this);
-		}
 	}
 
 //	@Override
