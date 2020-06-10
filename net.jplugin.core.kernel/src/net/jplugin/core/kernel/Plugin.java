@@ -1,7 +1,7 @@
 package net.jplugin.core.kernel;
 
 import net.jplugin.common.kits.http.filter.IHttpClientFilter;
-import net.jplugin.core.kernel.api.AbstractPlugin;
+import net.jplugin.core.kernel.api.AbstractBasicPlugin;
 import net.jplugin.core.kernel.api.AutoBindExtensionManager;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.ExtensionKernelHelper;
@@ -26,7 +26,7 @@ import net.jplugin.core.kernel.kits.scheduled.ScheduledFilterManager;
  * @version 创建时间：2015-2-15 下午01:07:22
  **/
 
-public class Plugin extends AbstractPlugin{
+public class Plugin extends AbstractBasicPlugin{
 
 	public static final String EP_STARTUP = "EP_STARTUP";
 	public static final String EP_ANNO_FOR_ATTR = "EP_ANNO_FOR_ATTR";
