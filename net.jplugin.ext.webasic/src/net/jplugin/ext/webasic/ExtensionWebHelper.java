@@ -1,7 +1,7 @@
 package net.jplugin.ext.webasic;
 
 import net.jplugin.common.kits.reso.ResolverKit;
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.ClassDefine;
 import net.jplugin.core.kernel.api.Extension;
 import net.jplugin.core.kernel.api.PluginEnvirement;
@@ -25,7 +25,7 @@ public class ExtensionWebHelper {
 	 * @param beanClz
 	 */
 	@Deprecated
-	public static void addRestMethodExtension(AbstractBasicPlugin plugin,String path,Class beanClz){
+	public static void addRestMethodExtension(AbstractPlugin plugin,String path,Class beanClz){
 		addServiceExportExtension(plugin, path, beanClz);
 	}
 	
@@ -36,7 +36,7 @@ public class ExtensionWebHelper {
 	 * @param svcName
 	 */
 	@Deprecated
-	public static void addRestMethodExtension(AbstractBasicPlugin plugin,String path,String svcName){
+	public static void addRestMethodExtension(AbstractPlugin plugin,String path,String svcName){
 		addServiceExportExtension(plugin, path, svcName);
 	}
 	
@@ -46,7 +46,7 @@ public class ExtensionWebHelper {
 	 * @param path
 	 * @param beanClz
 	 */
-	public static void addServiceExportExtension(AbstractBasicPlugin plugin,String path,Class beanClz){
+	public static void addServiceExportExtension(AbstractPlugin plugin,String path,Class beanClz){
 		plugin.addExtension(Extension.create(net.jplugin.ext.webasic.Plugin.EP_RESTMETHOD, path, ObjectDefine.class,new String[][]{{"objType","javaObject"},{"objClass",beanClz.getName()}} ));
 	}
 	
@@ -56,7 +56,7 @@ public class ExtensionWebHelper {
 	 * @param path
 	 * @param svcName
 	 */
-	public static void addServiceExportExtension(AbstractBasicPlugin plugin,String path,String svcName){
+	public static void addServiceExportExtension(AbstractPlugin plugin,String path,String svcName){
 		plugin.addExtension(Extension.create(net.jplugin.ext.webasic.Plugin.EP_RESTMETHOD, path, ObjectDefine.class,new String[][]{{"objType","bizLogic"},{"blName",svcName}} ));
 	}
 	
@@ -69,11 +69,11 @@ public class ExtensionWebHelper {
 
 	//add rest service。Hashmap参数
 	@Deprecated
-	public static void addRestServiceExtension(AbstractBasicPlugin plugin,String path,Class beanClz){
+	public static void addRestServiceExtension(AbstractPlugin plugin,String path,Class beanClz){
 		plugin.addExtension(Extension.create(net.jplugin.ext.webasic.Plugin.EP_RESTSERVICE, path, ObjectDefine.class,new String[][]{{"objType","javaObject"},{"objClass",beanClz.getName()}} ));
 	}
 	@Deprecated
-	public static void addRestServiceExtension(AbstractBasicPlugin plugin,String path,String svcName){
+	public static void addRestServiceExtension(AbstractPlugin plugin,String path,String svcName){
 		plugin.addExtension(Extension.create(net.jplugin.ext.webasic.Plugin.EP_RESTSERVICE, path, ObjectDefine.class,new String[][]{{"objType","bizLogic"},{"blName",svcName}} ));
 	}
 //	public static void addRestServiceExtension(AbstractPlugin plugin,String path,Class beanClz,String method){
@@ -85,15 +85,15 @@ public class ExtensionWebHelper {
 	
 	
 	//add webex controller  扩展的webcontroller
-	public static void addWebExControllerExtension(AbstractBasicPlugin plugin,String path,Class beanClz){
+	public static void addWebExControllerExtension(AbstractPlugin plugin,String path,Class beanClz){
 		plugin.addExtension(Extension.create(net.jplugin.ext.webasic.Plugin.EP_WEBEXCONTROLLER, path, ClassDefine.class,new String[][]{{"clazz",beanClz.getName()}} ));
 	}
 	
 	//add web controller  Web控制
-	public static void addWebControllerExtension(AbstractBasicPlugin plugin,String path,Class beanClz){
+	public static void addWebControllerExtension(AbstractPlugin plugin,String path,Class beanClz){
 		plugin.addExtension(Extension.create(net.jplugin.ext.webasic.Plugin.EP_WEBCONTROLLER, path, ObjectDefine.class,new String[][]{{"objType","javaObject"},{"objClass",beanClz.getName()}} ));
 	}
-	public static void addWebControllerExtension(AbstractBasicPlugin plugin,String path,String svcName){
+	public static void addWebControllerExtension(AbstractPlugin plugin,String path,String svcName){
 		plugin.addExtension(Extension.create(net.jplugin.ext.webasic.Plugin.EP_WEBCONTROLLER, path, ObjectDefine.class,new String[][]{{"objType","bizLogic"},{"blName",svcName}} ));
 	}
 //	public static void addWebControllerExtension(AbstractPlugin plugin,String path,Class beanClz,String method){
@@ -105,11 +105,11 @@ public class ExtensionWebHelper {
 
 	//add remote call  Java序列化的远程服务
 	@Deprecated
-	public static void addRemoteCallExtension(AbstractBasicPlugin plugin,String path,Class beanClz){
+	public static void addRemoteCallExtension(AbstractPlugin plugin,String path,Class beanClz){
 		plugin.addExtension(Extension.create(net.jplugin.ext.webasic.Plugin.EP_REMOTECALL, path, ObjectDefine.class,new String[][]{{"objType","javaObject"},{"objClass",beanClz.getName()}} ));
 	}
 	@Deprecated
-	public static void addRemoteCallExtension(AbstractBasicPlugin plugin,String path,String svcName){
+	public static void addRemoteCallExtension(AbstractPlugin plugin,String path,String svcName){
 		plugin.addExtension(Extension.create(net.jplugin.ext.webasic.Plugin.EP_REMOTECALL, path, ObjectDefine.class,new String[][]{{"objType","bizLogic"},{"blName",svcName}} ));
 	}
 //	public static void addRemoteCallExtension(AbstractPlugin plugin,String path,Class beanClz,String method){
@@ -120,14 +120,14 @@ public class ExtensionWebHelper {
 //	}
 	
 	//filter
-	public static void addWebFilterExtension(AbstractBasicPlugin plugin,Class filter){
+	public static void addWebFilterExtension(AbstractPlugin plugin,Class filter){
 		plugin.addExtension(Extension.create(net.jplugin.ext.webasic.Plugin.EP_WEBFILTER,"",filter));
 	}
 	//service filter
-	public static void addServiceFilterExtension(AbstractBasicPlugin plugin,Class sf){
+	public static void addServiceFilterExtension(AbstractPlugin plugin,Class sf){
 		plugin.addExtension(Extension.create(net.jplugin.ext.webasic.Plugin.EP_SERVICEFILTER,"",sf));
 	}
-	public static void addWebCtrlFilterExtension(AbstractBasicPlugin plugin,Class sf){
+	public static void addWebCtrlFilterExtension(AbstractPlugin plugin,Class sf){
 		plugin.addExtension(Extension.create(net.jplugin.ext.webasic.Plugin.EP_WEBCTRLFILTER,"",sf));
 	}
 
@@ -138,7 +138,7 @@ public class ExtensionWebHelper {
 	 * @param p   对应的Plugin类
 	 * @param pkgPath  相对于Plugin类的相对包路径，比如“.svc" ,可以为null
 	 */
-	public static void autoBindServiceExportExtension(AbstractBasicPlugin p,String pkgPath) {
+	public static void autoBindServiceExportExtension(AbstractPlugin p,String pkgPath) {
 		for(Class c:p.filterContainedClasses(pkgPath,BindServiceExport.class)){
 			BindServiceExport anno = (BindServiceExport) c.getAnnotation(BindServiceExport.class);
 			addServiceExportExtension(p, anno.path(), c);
@@ -155,7 +155,7 @@ public class ExtensionWebHelper {
 	 * @param p   对应的Plugin类
 	 * @param pkgPath  相对于Plugin类的相对包路径。
 	 */
-	public static void autoBindControllerExtension(AbstractBasicPlugin p, String pkgPath) {
+	public static void autoBindControllerExtension(AbstractPlugin p, String pkgPath) {
 		for (Class c : p.filterContainedClasses(pkgPath, BindController.class)) {
 			BindController anno = (BindController) c.getAnnotation(BindController.class);
 			if (AbstractExController.class.isAssignableFrom(c)) {
@@ -187,7 +187,7 @@ public class ExtensionWebHelper {
 	 * @param pkgPath  相对于Plugin类的相对包路径。
 	 */
 	@Deprecated
-	public static void autoAddServiceExportExtension(AbstractBasicPlugin p, String pkgPath) {
+	public static void autoAddServiceExportExtension(AbstractPlugin p, String pkgPath) {
 		String pkg = p.getClass().getPackage().getName() +pkgPath;
 		ResolverKit kit = new ResolverKit<>();
 		kit.find(pkg, (c) -> {
@@ -221,7 +221,7 @@ public class ExtensionWebHelper {
 	 * @param pkgPath  相对于Plugin类的相对包路径。
 	 */
 	@Deprecated
-	public static void autoAddWebControllerExtension(AbstractBasicPlugin p, String pkgPath) {
+	public static void autoAddWebControllerExtension(AbstractPlugin p, String pkgPath) {
 		String pkg = p.getClass().getPackage().getName() + pkgPath;
 		ResolverKit kit = new ResolverKit<>();
 		kit.find(pkg, (c) -> {
@@ -245,13 +245,13 @@ public class ExtensionWebHelper {
 		});
 	}
 	
-	public static void addHttpFilterExtension(AbstractBasicPlugin p,Class c){
+	public static void addHttpFilterExtension(AbstractPlugin p,Class c){
 		p.addExtension(Extension.create(net.jplugin.ext.webasic.Plugin.EP_HTTP_FILTER, c));
 	}
-	public static void addESFRpcFilterExtension(AbstractBasicPlugin p,Class c){
+	public static void addESFRpcFilterExtension(AbstractPlugin p,Class c){
 		p.addExtension(Extension.create(net.jplugin.ext.webasic.Plugin.EP_ESF_RPC_FILTER, c));
 	}
-	public static void addESFRestFilterExtension(AbstractBasicPlugin p,Class c){
+	public static void addESFRestFilterExtension(AbstractPlugin p,Class c){
 		p.addExtension(Extension.create(net.jplugin.ext.webasic.Plugin.EP_ESF_REST_FILTER, c));
 	}
 }

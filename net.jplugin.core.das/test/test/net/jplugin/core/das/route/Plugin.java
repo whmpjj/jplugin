@@ -87,4 +87,11 @@ public class Plugin extends AbstractPluginForTest {
 		return CoreServicePriority.DAS_TS+1;
 	}
 
+
+	@Override
+	public boolean searchClazzForExtension() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

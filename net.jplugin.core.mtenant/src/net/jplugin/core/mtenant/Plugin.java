@@ -3,7 +3,7 @@ package net.jplugin.core.mtenant;
 import net.jplugin.core.config.ExtensionConfigHelper;
 import net.jplugin.core.config.api.ConfigFactory;
 import net.jplugin.core.das.ExtensionDasHelper;
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.ExtensionKernelHelper;
 import net.jplugin.core.kernel.api.ExtensionPoint;
@@ -20,7 +20,7 @@ import net.jplugin.core.mtenant.tidv.TenantIDValidator;
 import net.jplugin.ext.webasic.ExtensionWebHelper;
 import net.jplugin.mtenant.impl.kit.SqlMultiTenantHanlderMergeImpl;
 
-public class Plugin extends AbstractBasicPlugin{
+public class Plugin extends AbstractPlugin{
 	
 	/**
 	 * <pre>
@@ -138,6 +138,11 @@ public class Plugin extends AbstractBasicPlugin{
 	@Override
 	public void init() {
 		
+	}
+
+	@Override
+	public boolean searchClazzForExtension() {
+		return false;
 	}
 	
 }

@@ -17,12 +17,12 @@ import net.jplugin.core.das.monitor.SqlMonitor;
 import net.jplugin.core.das.monitor.SqlMonitorListenerManager;
 import net.jplugin.core.das.sqlrefactor.SqlRefactorConnWrapperService;
 import net.jplugin.core.das.sqlrefactor.SqlRefactorManager;
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.ClassDefine;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.ExtensionPoint;
 
-public class Plugin extends AbstractBasicPlugin {
+public class Plugin extends AbstractPlugin {
 	public static final String EP_DBSPLIT_ALG = "EP_DBSPLIT_ALG";
 	public static final String EP_DATASOURCE = "EP_DATASOURCE";
 	public static final String EP_UM_DATASOURCE = "EP_UM_DATASOURCE";
@@ -77,6 +77,13 @@ public class Plugin extends AbstractBasicPlugin {
 	@Override
 	public void init() {
 		
+	}
+
+
+	@Override
+	public boolean searchClazzForExtension() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

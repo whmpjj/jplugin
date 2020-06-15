@@ -5,7 +5,7 @@ import net.jplugin.core.event.api.Channel;
 import net.jplugin.core.event.api.EventAliasDefine;
 import net.jplugin.core.event.api.EventConsumer;
 import net.jplugin.core.event.impl.ChannelFacade;
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.Extension;
 import net.jplugin.core.kernel.api.ExtensionPoint;
@@ -19,7 +19,7 @@ import net.jplugin.core.service.api.ServiceFactory;
  * @version 创建时间：2015-2-7 下午03:20:27
  **/
 
-public class Plugin extends AbstractBasicPlugin{
+public class Plugin extends AbstractPlugin{
 	
 	public static final String EP_EVENT_TYPES = "EP_EVENT_TYPES";
 	public static final String EP_EVENT_TYPE_ALIAS = "EP_EVENT_TYPE_ALIAS";
@@ -49,6 +49,11 @@ public class Plugin extends AbstractBasicPlugin{
 	public void init() {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public boolean searchClazzForExtension() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

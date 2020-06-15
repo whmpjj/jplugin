@@ -54,4 +54,10 @@ public class Plugin extends AbstractPluginForTest {
 		new TestBindExtension().test();
 	}
 
+	@Override
+	public boolean searchClazzForExtension() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

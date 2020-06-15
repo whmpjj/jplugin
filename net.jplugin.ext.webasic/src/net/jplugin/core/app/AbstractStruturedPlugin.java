@@ -2,7 +2,7 @@ package net.jplugin.core.app;
 
 import net.jplugin.core.ctx.ExtensionCtxHelper;
 import net.jplugin.core.das.mybatis.api.ExtensionMybatisDasHelper;
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.ext.webasic.ExtensionWebHelper;
 
 /**
@@ -33,7 +33,7 @@ import net.jplugin.ext.webasic.ExtensionWebHelper;
  *
  */
 @Deprecated
-public abstract class AbstractStruturedPlugin extends AbstractBasicPlugin{
+public abstract class AbstractStruturedPlugin extends AbstractPlugin{
 	public AbstractStruturedPlugin(){
 		ExtensionWebHelper.autoAddServiceExportExtension(this,".export");
 		ExtensionWebHelper.autoAddWebControllerExtension(this, ".controller");

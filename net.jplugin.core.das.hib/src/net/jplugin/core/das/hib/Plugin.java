@@ -6,7 +6,7 @@ import net.jplugin.core.das.hib.api.IPersistObjDefinition;
 import net.jplugin.core.das.hib.api.SinglePoDefine;
 import net.jplugin.core.das.hib.impl.DataService4Hibernate;
 import net.jplugin.core.das.hib.mt.MtDataService;
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.Extension;
 import net.jplugin.core.kernel.api.ExtensionPoint;
@@ -20,7 +20,7 @@ import net.jplugin.core.service.api.ServiceFactory;
  * @version 创建时间：2015-2-9 上午08:35:48
  **/
 
-public class Plugin extends AbstractBasicPlugin{
+public class Plugin extends AbstractPlugin{
 
 	public static final String EP_DATAMAPPING = "EP_DATAMAPPING";
 	public static final String EP_DATAMAPPING_SINGLE = "EP_DATAMAPPING_SINGLE";
@@ -77,6 +77,12 @@ public class Plugin extends AbstractBasicPlugin{
 
 	@Override
 	public void init() {
+	}
+
+	@Override
+	public boolean searchClazzForExtension() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

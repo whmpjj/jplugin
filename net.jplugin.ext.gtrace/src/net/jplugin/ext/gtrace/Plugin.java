@@ -1,7 +1,7 @@
 package net.jplugin.ext.gtrace;
 
 import net.jplugin.core.ctx.ExtensionCtxHelper;
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.ExtensionKernelHelper;
 import net.jplugin.ext.gtrace.impl.ESFRestFilter4Trace;
@@ -15,7 +15,7 @@ import net.jplugin.ext.gtrace.impl.RunnableInitFilter4Trace;
 import net.jplugin.ext.gtrace.impl.ScheduledExeFilter4Trace;
 import net.jplugin.ext.webasic.ExtensionWebHelper;
 
-public class Plugin extends AbstractBasicPlugin {
+public class Plugin extends AbstractPlugin {
 	public Plugin() {
 		ExtensionWebHelper.addHttpFilterExtension(this,HttpFilter4TraceLog.class );
 		ExtensionKernelHelper.addExecutorFilterExtension(this, ExecuterFilter4TraceLog.class);
@@ -35,6 +35,11 @@ public class Plugin extends AbstractBasicPlugin {
 	@Override
 	public int getPrivority() {
 		return CoreServicePriority.GTRACE;
+	}
+	@Override
+	public boolean searchClazzForExtension() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

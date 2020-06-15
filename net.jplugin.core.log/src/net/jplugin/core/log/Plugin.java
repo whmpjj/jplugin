@@ -1,6 +1,6 @@
 package net.jplugin.core.log;
 
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.Extension;
 import net.jplugin.core.kernel.api.ExtensionKernelHelper;
@@ -20,7 +20,7 @@ import net.jplugin.core.service.api.ServiceFactory;
  **/
 
 @PluginAnnotation(prepareSeq=-2)
-public class Plugin extends AbstractBasicPlugin{
+public class Plugin extends AbstractPlugin{
 
 	public static void prepare(){
 		LogFactory.init();
@@ -48,6 +48,11 @@ public class Plugin extends AbstractBasicPlugin{
 	}
 
 	public void init() {
+	}
+
+	@Override
+	public boolean searchClazzForExtension() {
+		return false;
 	}
 
 }

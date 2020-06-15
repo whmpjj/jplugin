@@ -7,7 +7,7 @@ import net.jplugin.core.config.impl.AnnoForAttrHandler;
 import net.jplugin.core.config.impl.ConfigRepository;
 import net.jplugin.core.config.impl.ConfigureChangeManager;
 import net.jplugin.core.config.impl.PropertyFilter;
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.Extension;
 import net.jplugin.core.kernel.api.ExtensionKernelHelper;
@@ -20,7 +20,7 @@ import net.jplugin.core.kernel.api.PluginEnvirement;
 * @version 创建时间：2015-10-12 下午01:07:22
 **/
 @PluginAnnotation(prepareSeq=-1)
-public class Plugin extends AbstractBasicPlugin{
+public class Plugin extends AbstractPlugin{
 
 	public static final String EP_CONFIG_CHANGE_HANDLER = "EP_CONFIG_CHANGE_HANDLER";
 
@@ -56,6 +56,12 @@ public class Plugin extends AbstractBasicPlugin{
 	public void init() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean searchClazzForExtension() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 	

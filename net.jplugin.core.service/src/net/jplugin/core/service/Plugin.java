@@ -2,7 +2,7 @@ package net.jplugin.core.service;
 
 import java.util.Map;
 
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.AutoBindExtensionManager;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.ExtensionKernelHelper;
@@ -18,7 +18,7 @@ import net.jplugin.core.service.impl.ServiceAttrAnnoHandler;
  * @version 创建时间：2015-2-7 下午09:59:02
  **/
 
-public class Plugin extends AbstractBasicPlugin{
+public class Plugin extends AbstractPlugin{
 
 	static{
 		AutoBindExtensionManager.INSTANCE.addBindExtensionHandler((p)->{
@@ -50,6 +50,11 @@ public class Plugin extends AbstractBasicPlugin{
 	public void init() {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public boolean searchClazzForExtension() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 //	@Override

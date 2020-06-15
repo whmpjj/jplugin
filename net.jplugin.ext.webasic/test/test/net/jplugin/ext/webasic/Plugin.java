@@ -91,4 +91,10 @@ public class Plugin extends AbstractPluginForTest{
 	public void onDestroy() {
 		System.out.println("### on destroy");
 	}
+
+	@Override
+	public boolean searchClazzForExtension() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

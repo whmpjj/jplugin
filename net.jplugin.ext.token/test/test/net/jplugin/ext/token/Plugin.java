@@ -16,4 +16,10 @@ public class Plugin extends AbstractPluginForTest {
 		return CoreServicePriority.TOKEN+1;
 	}
 
+	@Override
+	public boolean searchClazzForExtension() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -91,5 +91,10 @@ public class Plugin extends AbstractPluginForTest{
 	public int getPrivority() {
 		return CoreServicePriority.DAS_IBATIS+1;
 	}
+	@Override
+	public boolean searchClazzForExtension() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

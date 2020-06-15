@@ -5,13 +5,13 @@ import javax.sql.DataSource;
 import net.jplugin.core.das.ExtensionDasHelper;
 import net.jplugin.core.das.dds.dsnamed.DsNamedDataSource;
 import net.jplugin.core.das.dds.select.SelectRouterDataSource;
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.ExtensionPoint;
 import net.jplugin.core.kernel.api.PluginAnnotation;
 
 @PluginAnnotation
-public class Plugin extends AbstractBasicPlugin {
+public class Plugin extends AbstractPlugin {
 
 	
 	
@@ -27,6 +27,11 @@ public class Plugin extends AbstractBasicPlugin {
 	@Override
 	public int getPrivority() {
 		return CoreServicePriority.DAS + 2;
+	}
+	@Override
+	public boolean searchClazzForExtension() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

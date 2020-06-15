@@ -1,6 +1,6 @@
 package net.jplugin.core.rclient;
 
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.ExtensionPoint;
 import net.jplugin.core.rclient.api.Client;
@@ -26,7 +26,7 @@ import net.jplugin.core.rclient.proxyfac.TokenFactory;
  * @version 创建时间：2015-2-14 上午09:35:53
  **/
 
-public class Plugin extends AbstractBasicPlugin{
+public class Plugin extends AbstractPlugin{
 	public static final String EP_CLIENT_HANDLER ="EP_CLIENT_HANDLER";
 	public static final String EP_CLIENT_FILTER ="EP_CLIENT_FILTER";
 	public static final String EP_SERVICEURL_RESOLVER = "EP_SERVICEURL_RESOLVER";
@@ -72,6 +72,11 @@ public class Plugin extends AbstractBasicPlugin{
 	public void init() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean searchClazzForExtension() {
+		return false;
 	}
 
 }

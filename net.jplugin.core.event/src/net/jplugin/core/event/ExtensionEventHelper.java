@@ -1,7 +1,7 @@
 package net.jplugin.core.event;
 
 import net.jplugin.core.event.api.Channel.ChannelType;
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.Extension;
 
 /**
@@ -16,7 +16,7 @@ public class ExtensionEventHelper {
 	 * @param plugin
 	 * @param entitychangeevent
 	 */
-	public static void addEventTypeExtension(AbstractBasicPlugin plugin,
+	public static void addEventTypeExtension(AbstractPlugin plugin,
 			String eventtype) {
 		plugin.addExtension(Extension.createStringExtension(net.jplugin.core.event.Plugin.EP_EVENT_TYPES, eventtype));
 	}
@@ -27,7 +27,7 @@ public class ExtensionEventHelper {
 	 * @param entitychangeevent
 	 * @param sync
 	 */
-	public static void addConsumerExtension(AbstractBasicPlugin plugin,
+	public static void addConsumerExtension(AbstractPlugin plugin,
 			Class consumerCls, String targetType,
 			ChannelType chanelType) {
 		

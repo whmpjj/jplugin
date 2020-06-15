@@ -1,7 +1,7 @@
 package net.jplugin.core.das.hib.api;
 
 import net.jplugin.core.das.hib.Plugin;
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.Extension;
 
 /**
@@ -11,7 +11,7 @@ import net.jplugin.core.kernel.api.Extension;
  **/
 
 public class ExtensionDasHelper {
-	public static void addDataMappingExtension(AbstractBasicPlugin plugin,Class entityCls){
+	public static void addDataMappingExtension(AbstractPlugin plugin,Class entityCls){
 		plugin.addExtension(Extension.create(Plugin.EP_DATAMAPPING_SINGLE, SinglePoDefine.class,new String[][]{{"poClass",entityCls.getName()}}));
 	}
 }

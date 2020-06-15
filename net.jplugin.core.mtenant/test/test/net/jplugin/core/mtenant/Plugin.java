@@ -50,4 +50,9 @@ public class Plugin extends AbstractPluginForTest {
 	public int getPrivority() {
 		return CoreServicePriority.MULTI_TANANT + 1;
 	}
+
+	@Override
+	public boolean searchClazzForExtension() {
+		return false;
+	}
 }

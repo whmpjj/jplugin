@@ -27,4 +27,9 @@ public class Plugin extends AbstractPluginForTest{
 	 return	CoreServicePriority.LOG+1;
 	}
 
+	@Override
+	public boolean searchClazzForExtension() {
+		return false;
+	}
+
 }

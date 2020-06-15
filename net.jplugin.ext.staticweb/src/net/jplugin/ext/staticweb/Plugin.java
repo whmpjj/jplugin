@@ -1,10 +1,10 @@
 package net.jplugin.ext.staticweb;
 
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.CorePlugin;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 
-public class Plugin extends AbstractBasicPlugin{
+public class Plugin extends AbstractPlugin{
 
 	@Override
 	public void init() {
@@ -14,6 +14,12 @@ public class Plugin extends AbstractBasicPlugin{
 	@Override
 	public int getPrivority() {
 		return CoreServicePriority.STATIC_WEB;
+	}
+
+	@Override
+	public boolean searchClazzForExtension() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

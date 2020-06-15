@@ -20,16 +20,16 @@ import net.jplugin.common.kits.StringKit;
  **/
 
 public class PluginRegistry {
-	private List<AbstractBasicPlugin> pluginList = new Vector<AbstractBasicPlugin>();
+	private List<AbstractPlugin> pluginList = new Vector<AbstractPlugin>();
 	private List<PluginError> errorList = new Vector<PluginError>();
 	private Hashtable<String, ExtensionPoint> extensionPointMap =  new Hashtable<String, ExtensionPoint>();
-	private Map<String,AbstractBasicPlugin> loadedPluginMap = new Hashtable<String, AbstractBasicPlugin>();
+	private Map<String,AbstractPlugin> loadedPluginMap = new Hashtable<String, AbstractPlugin>();
 	
 	public List<PluginError> getErrors(){
 		return this.errorList;
 	}
 	
-	public List<AbstractBasicPlugin> getPluginList(){
+	public List<AbstractPlugin> getPluginList(){
 		return Collections.unmodifiableList(this.pluginList);
 	}
 	
@@ -37,12 +37,12 @@ public class PluginRegistry {
 	 * @param plugin
 	 */
 	public void addPlugin(IPlugin plugin){
-		this.pluginList.add((AbstractBasicPlugin) plugin);
+		this.pluginList.add((AbstractPlugin) plugin);
 	}
 	
 	public void afterPluginsContruct() {
 		for (int i=0;i<pluginList.size();i++){
-			AbstractBasicPlugin p = pluginList.get(i);
+			AbstractPlugin p = pluginList.get(i);
 			p.afterPluginsContruct();
 		}
 	}
@@ -58,8 +58,8 @@ public class PluginRegistry {
 		SortUtil.sort(this.pluginList, new Comparor() {
 
 			public boolean isGreaterThen(Object o1, Object o2) {
-				AbstractBasicPlugin p1 = (AbstractBasicPlugin) o1;
-				AbstractBasicPlugin p2 = (AbstractBasicPlugin) o2;
+				AbstractPlugin p1 = (AbstractPlugin) o1;
+				AbstractPlugin p2 = (AbstractPlugin) o2;
 				
 				if (p1.getPrivority() > p2.getPrivority())
 					return true;
@@ -81,7 +81,7 @@ public class PluginRegistry {
 	 */
 	public void valid(){
 		for (int i=0;i<pluginList.size();i++){
-			AbstractBasicPlugin p = pluginList.get(i);
+			AbstractPlugin p = pluginList.get(i);
 			List<PluginError> ret = p.valid(this);
 			if (!ret.isEmpty()){
 				p.setStatus(IPlugin.STAT_ERROR);
@@ -96,7 +96,7 @@ public class PluginRegistry {
 	public void load(){
 		//加载
 		for (int i=0;i<pluginList.size();i++){
-			AbstractBasicPlugin plugin = (AbstractBasicPlugin) pluginList.get(i);
+			AbstractPlugin plugin = (AbstractPlugin) pluginList.get(i);
 			/**
 			 * 如果经过valid以后，不是错误状态(是初始状态),则加载，并修改为LOADED状态
 			 */
@@ -112,7 +112,7 @@ public class PluginRegistry {
 		}
 		//add loaded plugin to pluginmap
 		for (int i=0;i<pluginList.size();i++){
-			AbstractBasicPlugin plugin = pluginList.get(i);
+			AbstractPlugin plugin = pluginList.get(i);
 			this.loadedPluginMap.put(plugin.getName(),plugin);
 		}
 	}
@@ -128,7 +128,7 @@ public class PluginRegistry {
 		this.extensionPointMap.clear();
 		
 		for (int i=0;i<pluginList.size();i++){
-			AbstractBasicPlugin plugin = (AbstractBasicPlugin) pluginList.get(i);
+			AbstractPlugin plugin = (AbstractPlugin) pluginList.get(i);
 			if (plugin.getStatus() == IPlugin.STAT_LOADED){
 				plugin.wire(this,this.errorList);
 			}
@@ -138,7 +138,7 @@ public class PluginRegistry {
 	public void makeServices() {
 		PluginEnvirement.INSTANCE.getStartLogger().log("==Now to create services==");
 		for (int i=0;i<pluginList.size();i++){
-			AbstractBasicPlugin plugin = (AbstractBasicPlugin) pluginList.get(i);
+			AbstractPlugin plugin = (AbstractPlugin) pluginList.get(i);
 			if (plugin.getStatus() == IPlugin.STAT_LOADED){
 				plugin.onCreateServices();
 			}
@@ -154,7 +154,7 @@ public class PluginRegistry {
 	public void start(boolean testAll, String testTarget){
 		PluginEnvirement.INSTANCE.getStartLogger().log("==Now to init plugins==");
 		for (int i=0;i<pluginList.size();i++){
-			AbstractBasicPlugin plugin = (AbstractBasicPlugin) pluginList.get(i);
+			AbstractPlugin plugin = (AbstractPlugin) pluginList.get(i);
 			if (plugin.getStatus() == IPlugin.STAT_LOADED){
 				try{
 					PluginEnvirement.INSTANCE.getStartLogger().log("StartPlugin :["+i+"] "+plugin.getName());
@@ -200,7 +200,7 @@ public class PluginRegistry {
 	}
 	
 	public IPlugin getLoadedPlugin(String nm){
-		AbstractBasicPlugin ret = this.loadedPluginMap.get(nm);
+		AbstractPlugin ret = this.loadedPluginMap.get(nm);
 		if (ret==null){
 			throw new RuntimeException("the plugin not load correctly :"+nm);
 		}
@@ -209,7 +209,7 @@ public class PluginRegistry {
 
 	public void destroy() {
 		for (int i=0;i<pluginList.size();i++){
-			AbstractBasicPlugin plugin = (AbstractBasicPlugin) pluginList.get(i);
+			AbstractPlugin plugin = (AbstractPlugin) pluginList.get(i);
 			try{
 				plugin.onDestroy();
 			}catch(Exception e){
@@ -220,7 +220,7 @@ public class PluginRegistry {
 
 	public void clearClassCache() {
 		for (int i=0;i<pluginList.size();i++){
-			AbstractBasicPlugin plugin = (AbstractBasicPlugin) pluginList.get(i);
+			AbstractPlugin plugin = (AbstractPlugin) pluginList.get(i);
 			plugin._cleanContainedClasses();
 		}
 	}
@@ -228,7 +228,7 @@ public class PluginRegistry {
 	public void handleDuplicateExtension() {
 		Set<Extension> tempSet = new HashSet();
 		
-		for (AbstractBasicPlugin p:this.pluginList) {
+		for (AbstractPlugin p:this.pluginList) {
 			
 			List<Extension> extList = p.getExtensions();
 			

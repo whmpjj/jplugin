@@ -1,9 +1,9 @@
 package net.jplugin.core.job;
 
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 
-public class Plugin extends AbstractBasicPlugin{
+public class Plugin extends AbstractPlugin{
 
 	public void onCreateServices() {
 		// TODO Auto-generated method stub
@@ -19,6 +19,12 @@ public class Plugin extends AbstractBasicPlugin{
 	public void init() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean searchClazzForExtension() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

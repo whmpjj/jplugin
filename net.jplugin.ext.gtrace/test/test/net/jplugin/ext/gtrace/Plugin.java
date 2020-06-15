@@ -35,5 +35,10 @@ public class Plugin extends AbstractPluginForTest {
 	public int getPrivority() {
 		return CoreServicePriority.GTRACE+1;
 	}
+	@Override
+	public boolean searchClazzForExtension() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

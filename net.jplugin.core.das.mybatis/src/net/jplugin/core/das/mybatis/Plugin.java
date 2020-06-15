@@ -10,7 +10,7 @@ import net.jplugin.core.das.mybatis.impl.IMybatisService;
 import net.jplugin.core.das.mybatis.impl.MybatisMapperAnnoHandler;
 import net.jplugin.core.das.mybatis.impl.MybatisServiceAnnoHandler;
 import net.jplugin.core.das.mybatis.impl.sess.MybatisTransactionManagerListener;
-import net.jplugin.core.kernel.api.AbstractBasicPlugin;
+import net.jplugin.core.kernel.api.AbstractPlugin;
 import net.jplugin.core.kernel.api.AutoBindExtensionManager;
 import net.jplugin.core.kernel.api.CoreServicePriority;
 import net.jplugin.core.kernel.api.ExtensionKernelHelper;
@@ -18,7 +18,7 @@ import net.jplugin.core.kernel.api.ExtensionPoint;
 import net.jplugin.core.kernel.api.PluginEnvirement;
 import net.jplugin.core.service.ExtensionServiceHelper;
 
-public class Plugin extends AbstractBasicPlugin{
+public class Plugin extends AbstractPlugin{
 	
 	public static final String EP_MYBATIS_MAPPER = "EP_MYBATIS_MAPPER";
 	public static final String EP_MYBATIS_INCEPT = "EP_MYBATIS_INCEPT";
@@ -77,6 +77,12 @@ public class Plugin extends AbstractBasicPlugin{
 	public void init() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean searchClazzForExtension() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
