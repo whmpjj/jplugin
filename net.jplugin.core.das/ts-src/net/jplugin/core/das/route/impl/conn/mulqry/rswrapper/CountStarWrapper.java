@@ -135,7 +135,9 @@ public class CountStarWrapper extends EmptyQueryableResultSet{
 	}
 
 	public boolean wasNull() throws SQLException {
-		return list.wasNull();
+		//只要调用时机正确，肯定是返回false。如果交给内层对象去调用，就会出错了。
+		return false;
+//		return list.wasNull();
 	}
 
 	public boolean getBoolean(int columnIndex) throws SQLException {

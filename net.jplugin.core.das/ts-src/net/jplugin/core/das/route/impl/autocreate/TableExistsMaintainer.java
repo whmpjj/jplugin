@@ -190,7 +190,7 @@ public class TableExistsMaintainer {
 						if (alais!=null)
 							countName = expressionItem.getAlias().getName();
 						if (StringKit.isNull(countName)){
-							countName = "";
+							countName = "`"+exp.toString()+"`";
 						}
 						
 						Boolean isGroupby = ps.getGroupBy()!=null;
