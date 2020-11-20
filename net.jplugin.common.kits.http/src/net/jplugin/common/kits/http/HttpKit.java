@@ -252,6 +252,8 @@ public final class HttpKit{
 			Builder configBuilder = RequestConfig.custom();
 			if (invokeParam.getServiceTimeOut() != 0) {
 				configBuilder.setSocketTimeout(invokeParam.getServiceTimeOut());
+				configBuilder.setConnectionRequestTimeout(invokeParam.getServiceTimeOut());
+				configBuilder.setConnectTimeout(invokeParam.getServiceTimeOut());
 			}
 			httpReqBase.setConfig(configBuilder.build());
 		}
